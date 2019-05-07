@@ -33,4 +33,5 @@ $ make
     ![add boot img](resource/add_boot_img.png)
 
     6. 启动虚拟机
-    ![start vm](start_vm.png) 
+    ![start vm](resource/start_vm.png) 
+
