@@ -4,70 +4,35 @@
     mov %ax,%ds
     mov %ax,%es
     call CpToDispMem
-    INF: jmp INF
+INF: 
+    jmp INF
 
 CpToDispMem:
     # set base address of display memory
     mov $0xb800, %ax
     mov %ax, %es
-    # set source base address to bp registor 
-    mov $BootMessage, %ax
-    mov %ax, %bp
     # set index registor
     sub %di, %di
-    # set end condition
-    mov $EndBootMsg, %cx
-    sub $BootMessage, %cx
     # enter copy loop
+    movw BootMessage(%di), %dx
+
 copyloop:
     # copy ascii byte
-    movw 0x0(%bp,%di), %dx
     movw %dx, %es:(%di)
-
     inc %di
-    // if (%cx < %dx)
-    // jmp to copyloop
-    cmp %di, %cx
-    jg copyloop
-    // else
-    // return
+    inc %di
+    movw BootMessage(%di), %dx
+    cmp $0x00, %dx
+    jne copyloop
 
     ret
 
 BootMessage:
-.byte 'H'
-.byte 0x01
-.byte 'e'
-.byte 0x02
-.byte 'l'
-.byte 0x03
-.byte 'l'
-.byte 0x04
-.byte 'o'
-.byte 0x05
-.byte ','
-.byte 0x06
-.byte ' '
-.byte 0x07
-.byte 'O'
-.byte 0x07
-.byte 'S'
-.byte 0x17
-.byte ' '
-.byte 0x27
-.byte 'w'
-.byte 0x37
-.byte 'o'
-.byte 0x47
-.byte 'r'
-.byte 0x57
-.byte 'l'
-.byte 0x67
-.byte 'd'
-.byte 0x01
-.byte '!'
-.byte 0x02
+.byte 'H', 0x01, 'e', 0x02, 'l', 0x03, 'l', 0x04
+.byte 'o', 0x05, ',', 0x06, ' ', 0x07, 'O', 0x06
+.byte 0x53, 0x05, ' ', 0x04, 'w', 0x03, 'o', 0x02
+.byte 'r', 0x01, 'l', 0x02, 'd', 0x03, '.', 0x04
+.word 0x00
 
-EndBootMsg:
 .org 510
 .word 0xaa55
