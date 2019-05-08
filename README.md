@@ -35,3 +35,14 @@ $ make
     6. 启动虚拟机
     ![start vm](resource/start_vm.png) 
 
+
+# 实验
+1. 使用BIOS中断输出hello world
+```bash
+$ git checkout v0.1-hello-world
+```
+
+2. 直接向显存中写数据
+```bash
+$ git checkout v0.2-colorful-hello-world
+```
