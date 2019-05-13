@@ -20,4 +20,4 @@ boot.o: boot.S
 	$(CC) -c boot.S
 
 clean:
-	rm -rf boot.o boot.elf boot.bin boot.img
+	rm -rf boot.o boot.elf boot.bin boot.img emptydisk.img
